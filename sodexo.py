@@ -1,6 +1,6 @@
 import requests
 import json
-from datetime import date
+from datetime import date, datetime
 
 restaurants = {"Visamäki" : "31314", "Riihimäki" : "31332", "Valkeakoski" : "31334"}
 restaurant = None
@@ -21,7 +21,13 @@ while not restaurant:
     else:
         print("Virheellinen valinta. Yritä uudelleen!")
 
-pvm = date.today()
+valinta = input("Minkä päivän ruokalistan haluat? ")
+
+if (valinta == ""):
+    pvm = date.today()
+else:
+    pvm = datetime.strptime(valinta, "%d.%m.%Y")
+    
 year = str(pvm.year)
 month = str(pvm.month)
 day = str(pvm.day)
