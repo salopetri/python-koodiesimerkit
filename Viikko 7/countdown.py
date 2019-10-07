@@ -32,33 +32,36 @@ def start(param = None):
         last = time.time()
         blink = False
         while target:
-                # Päivitetään kello, jos edellisestä päivityksestä on kulunut sekunti
-                if (time.time() >= last+1):
-                        # Lasketaan timedelta nykyhetken ja kohteen välillä
-                        diff = target-datetime.now()
-                        # Haetaan timedeltan sekunnit
-                        s = diff.seconds
-                        # Lasketaan tunnit
-                        h = formatTime(int(s/3600))
-                        # Vähennetään tunnit sekunneista laskemalla jakojäännös
-                        s %= 3600
-                        # Lasketaan minuutit
-                        m = formatTime(int(s/60))
-                        # Lasketaan jäljelle jäävät sekunnit
-                        s = formatTime(int(s%60))
-                        # Päivitetään laskurin teksti
-                        laskuri.config(text="{0}:{1}:{2}".format(h,m,s), fg='white')
-                        blink = False
-                        last = time.time()
-                # Laskuri välkkyy punaisena viimeisen minuutin aikana
-                if (time.time()-last >= 0.5 and not blink and diff.seconds < 60):
-                        laskuri.config(fg='red')
-                        blink = True
-                        if (diff.seconds < 10):
-                                # ASCII-merkki 7 on BELL-ääni
-                                print(chr(7))
-                ikkuna.update()
-                time.sleep(0.01)
+                try:
+                        # Päivitetään kello, jos edellisestä päivityksestä on kulunut sekunti
+                        if (time.time() >= last+1):
+                                # Lasketaan timedelta nykyhetken ja kohteen välillä
+                                diff = target-datetime.now()
+                                # Haetaan timedeltan sekunnit
+                                s = diff.seconds
+                                # Lasketaan tunnit
+                                h = formatTime(int(s/3600))
+                                # Vähennetään tunnit sekunneista laskemalla jakojäännös
+                                s %= 3600
+                                # Lasketaan minuutit
+                                m = formatTime(int(s/60))
+                                # Lasketaan jäljelle jäävät sekunnit
+                                s = formatTime(int(s%60))
+                                # Päivitetään laskurin teksti
+                                laskuri.config(text="{0}:{1}:{2}".format(h,m,s), fg='white')
+                                blink = False
+                                last = time.time()
+                        # Laskuri välkkyy punaisena viimeisen minuutin aikana
+                        if (time.time()-last >= 0.5 and not blink and diff.seconds < 60):
+                                laskuri.config(fg='red')
+                                blink = True
+                                if (diff.seconds < 10):
+                                        # ASCII-merkki 7 on BELL-ääni
+                                        print(chr(7))
+                        ikkuna.update()
+                        time.sleep(0.01)
+                except TclError:
+                        break
 
 ikkuna = Tk()
 ikkuna.title("Countdown timer")
