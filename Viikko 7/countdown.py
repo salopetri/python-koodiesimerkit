@@ -5,6 +5,7 @@ YKSINKERTAINEN COUNTDOWN-TIMER, JOLLE ANNETAAN KOHDE MUODOSSA HH:MM:SS
 from datetime import datetime
 import time
 from tkinter import *
+from tkinter import messagebox
 
 def formatTime(time):
         """
@@ -21,11 +22,16 @@ def start(param = None):
         Tässä funktiossa tapahtuu varsinainen kellon toiminta
         """
         # Luetaan käyttäjän syöte datetime-objektiksi
-        target = datetime.strptime(kohdeInput.get(), "%H:%M:%S")
-        diff = target-datetime.now()
+        try:
+                target = datetime.strptime(kohdeInput.get(), "%H:%M:%S")
+                diff = target-datetime.now()
+        except ValueError:
+                messagebox.showerror("Virheellinen syöte", "Anna kellonaika muodossa HH:MM:SS")
+                kohdeInput.delete(0, END)
+                kohdeInput.focus()
         last = time.time()
         blink = False
-        while True:
+        while target:
                 # Päivitetään kello, jos edellisestä päivityksestä on kulunut sekunti
                 if (time.time() >= last+1):
                         # Lasketaan timedelta nykyhetken ja kohteen välillä
