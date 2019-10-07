@@ -48,6 +48,9 @@ def start(param = None):
                 if (time.time()-last >= 0.5 and not blink and diff.seconds < 60):
                         laskuri.config(fg='red')
                         blink = True
+                        if (diff.seconds < 10):
+                                # ASCII-merkki 7 on BELL-ääni
+                                print(chr(7))
                 ikkuna.update()
                 time.sleep(0.01)
 
