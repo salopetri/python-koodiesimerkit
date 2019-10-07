@@ -1,5 +1,5 @@
 """
-YKSINKERTAINEN COUNTDOWN-TIMER, JOLLE ANNETAAN KOHDE MUODOSSA PP.KK.VVVV HH:MM:SS
+YKSINKERTAINEN COUNTDOWN-TIMER, JOLLE ANNETAAN KOHDE MUODOSSA HH:MM:SS
 """
 
 from datetime import datetime
@@ -14,7 +14,7 @@ def formatTime(time):
 
 def start(param = None):
     laskuri.grid(row=3, column=0)
-    target = datetime.strptime(kohdeInput.get(), "%d.%m.%Y %H:%M:%S")
+    target = datetime.strptime(kohdeInput.get(), "%H:%M:%S")
     while True:
         diff = target-datetime.now()
         s = diff.seconds
@@ -30,7 +30,7 @@ ikkuna = Tk()
 ikkuna.title("Countdown timer")
 ikkuna.resizable(False,False)
 
-ohjeteksti = Label(ikkuna, text="Anna kohdeaika (PP.KK.VVVV HH:MM:SS)")
+ohjeteksti = Label(ikkuna, text="Anna kohdeaika muodossa HH:MM:SS")
 ohjeteksti.grid(row=0, column=0, pady=20, padx=100)
 
 kohdeInput = Entry(ikkuna, width=30)
