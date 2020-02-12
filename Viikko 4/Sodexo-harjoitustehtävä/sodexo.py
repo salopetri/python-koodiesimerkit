@@ -24,6 +24,8 @@ while True:
     elif (valinta == 3):
         print("Kiitos käytöstä!")
         exit()
+    else:
+        continue # Hyppää silmukan alkuun (aloittaa seuraavan kierroksen)
 
     url = f"https://www.sodexo.fi/ruokalistat/output/daily_json/96/{pvm.year:d}-{pvm.month:02d}-{pvm.day:02d}"
     data = requests.get(url)
