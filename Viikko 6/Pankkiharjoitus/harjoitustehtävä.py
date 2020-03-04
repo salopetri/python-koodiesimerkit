@@ -22,7 +22,13 @@ while True:
     5. Lopeta ohjelma
     """)
 
-    valinta = int(input("Valinta: "))
+    while (True):
+        try:
+            valinta = int(input("Valinta: "))
+        except ValueError:
+            print("Virheellinen valinta! Anna valinta numeromuodossa!")
+            continue
+        break
 
     if (valinta == 1):
         # Listaa kaikki tilit
@@ -40,7 +46,10 @@ while True:
         osoite = input("Osoite: ")
         puhelinnumero = input("Puhelinnumero: ")
         tilinumero = input("Tilinumero: ")
-        saldo = float(input("Tilin alkusaldo: "))
+        try:
+            saldo = float(input("Tilin alkusaldo: "))
+        except ValueError:
+            print("Anna alkusaldo numeromuodossa! Esim. 120.95")
 
         uusi_tili = {
             "nimi":nimi,
@@ -56,16 +65,54 @@ while True:
     elif (valinta == 3):
         # Pano tilille
         pankki.listaa_tilit(tilit)
-        valittu_tili = int(input("Valittavan tilin järjestysnumero: "))
-        summa = float(input("Tilille pantava summa: "))
+
+        while(True):
+            try:
+                valittu_tili = int(input("Valittavan tilin järjestysnumero: "))
+                tilit[valittu_tili]
+            except ValueError:
+                print("Järjestysnumero tulee olla numeromuodossa!")
+                continue
+            except IndexError:
+                print("Valitsemaasi tiliä ei ole olemassa!")
+                continue
+            break
+
+        while(True):
+            try:
+                summa = float(input("Tilille pantava summa: "))
+            except ValueError:
+                print("Anna summa numeromuodossa, esim. 12.50")
+                continue
+            break
+
         tilit[valittu_tili]['saldo'] += summa
         pankki.tallennaPankki(tilit)
         print(f"Tilin saldo on nyt {tilit[valittu_tili]['saldo']} €")
+
     elif (valinta == 4):
         # Otto tililtä
         pankki.listaa_tilit(tilit)
-        valittu_tili = int(input("Valittavan tilin järjestysnumero: "))
-        summa = float(input("Tililtä otettava summa: "))
+        while(True):
+            try:
+                valittu_tili = int(input("Valittavan tilin järjestysnumero: "))
+                tilit[valittu_tili]
+            except ValueError:
+                print("Anna tilin järjestysnumero numeromuodossa!")
+                continue
+            except IndexError:
+                print("Valitsemaasi tiliä ei ole olemassa!")
+                continue
+            break
+
+        while(True):
+            try:
+                summa = float(input("Tililtä otettava summa: "))
+            except ValueError:
+                print("Virheellinen summa, anna muodossa 0.00")
+                continue
+            break
+        
         if (tilit[valittu_tili]['saldo'] > summa):
             tilit[valittu_tili]['saldo'] -= summa
             pankki.tallennaPankki(tilit)
