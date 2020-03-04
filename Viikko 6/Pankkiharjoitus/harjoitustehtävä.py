@@ -1,6 +1,6 @@
 """
 VIIKKO 6 - HARJOITUSTEHTÄVÄ
-- Tehdään viikoilla 3 ja 4 toteutettiin pankkiohjelmaan vikasietoisuus virhedein käsittelyä hyödyntäen
+- Tehdään viikoilla 3 ja 4 toteutettuun pankkiohjelmaan vikasietoisuus virheiden käsittelyä hyödyntäen.
 """
 import pankki, json
 
